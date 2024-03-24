@@ -9,6 +9,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.Optional;
+
 @RestController
 @RequestMapping("v1")
 public class ProductController {
@@ -22,8 +25,9 @@ public class ProductController {
         return new ResponseEntity<>(newProduct, HttpStatus.CREATED);
     }
     @GetMapping
-    public ResponseEntity<Product> getALl(){
-        return (ResponseEntity<Product>) this.productRepository.findAll();
+    public List<Product> getALl(){
+        List<Product> listUser = this.productRepository.findAll();
+        return listUser.stream().toList();
     }
 
 }
