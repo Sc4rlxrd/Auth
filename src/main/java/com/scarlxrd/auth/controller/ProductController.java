@@ -2,6 +2,7 @@ package com.scarlxrd.auth.controller;
 
 import com.scarlxrd.auth.domain.product.Product;
 import com.scarlxrd.auth.domain.product.ProductRequestDTO;
+import com.scarlxrd.auth.domain.product.ProductResponseDTO;
 import com.scarlxrd.auth.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -25,9 +26,10 @@ public class ProductController {
         return new ResponseEntity<>(newProduct, HttpStatus.CREATED);
     }
     @GetMapping
-    public List<Product> getALl(){
-        List<Product> listUser = this.productRepository.findAll();
-        return listUser.stream().toList();
+    public ResponseEntity getAllProducts(){
+        List<ProductResponseDTO> productList = this.productRepository.findAll().stream().map(ProductResponseDTO::new).toList();
+
+        return ResponseEntity.ok(productList);
     }
 
 }
